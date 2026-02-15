@@ -1,0 +1,8 @@
+test.internal {
+	tls internal
+	reverse_proxy http://server:9000 {
+		header_up Host {host}
+       		header_up X-Forwarded-Proto {scheme}
+       	 	header_up X-Forwarded-For {remote}
+    }
+}

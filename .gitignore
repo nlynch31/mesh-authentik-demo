@@ -1,0 +1,55 @@
+########################
+# Secrets / env files
+########################
+.env*
+!.env.example
+!.env*.example
+!.env.template
+
+########################
+# Zabbix env files
+########################
+.env_prx*
+.env_agent*
+.env_snmptraps*
+.env_java*
+mysql_init/
+chrome_dp.json
+
+########################
+# Volumes / persistent data
+########################
+**/data/
+**/*data*/
+**/db-data/
+**/pgdata/
+**/postgres-data/
+**/mysql-data/
+**/zbx_env/
+**/snmptraps/
+**/volumes/
+
+########################
+# TLS / certs / keys
+########################
+*.key
+*.pem
+*.pfx
+*.crt
+
+########################
+# Docker noise
+########################
+docker-compose.override.yml
+compose.override.yml
+
+########################
+# OS / editor
+########################
+.DS_Store
+*.log
+
+#######################
+# Upstream cloned repos
+######################
+/zabbix/zabbix-docker
