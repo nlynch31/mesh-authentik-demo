@@ -26,8 +26,8 @@ services:
     env_file:
     - .env
     networks:
-    - local-services-network
     - default
+    - edge 
     environment:
       AUTHENTIK_POSTGRESQL__HOST: postgresql
       AUTHENTIK_POSTGRESQL__NAME: ${PG_DB:-authentik}
@@ -67,5 +67,6 @@ volumes:
   database:
     driver: local
 networks:
-  local-services-network:
+  edge:
     external: true
+    name: local-services-network

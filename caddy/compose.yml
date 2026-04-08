@@ -14,10 +14,11 @@ services:
       - caddy_data:/data
       - caddy_config:/config
     networks:
-      - local-services-network
+      - edge
 volumes:
   caddy_data:
   caddy_config:
 networks:
-  local-services-network:
-     external: true
+  edge:
+    name: local-services-network
+    external: true
