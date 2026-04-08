@@ -1,0 +1,40 @@
+services:
+  postgres-server:
+    image: postgres:15
+    env_file:
+      - .env_db_pgsql
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  zabbix-server:
+    image: zabbix/zabbix-server-pgsql:alpine-7.4-latest
+    env_file:
+      - .env_db_pgsql
+      - .env_srv
+    environment:
+      DB_SERVER_HOST: postgres-server
+    depends_on:
+      - postgres-server
+
+  zabbix-web:
+    image: zabbix/zabbix-web-nginx-pgsql:alpine-7.4-latest
+    env_file:
+      - .env_db_pgsql
+      - .env_web
+    environment:
+      DB_SERVER_HOST: postgres-server
+      ZBX_SERVER_HOST: zabbix-server
+      PHP_TZ: America/New_York
+    depends_on:
+      - zabbix-server
+    networks:
+      - default
+      - edge
+
+volumes:
+  postgres_data:
+
+networks:
+  edge:
+    external: true
+    name: local-services-network
