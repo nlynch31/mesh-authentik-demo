@@ -12,7 +12,11 @@ services:
       - caddy_data:/data
       - caddy_config:/config
     networks:
-      - edge
+      edge:
+        aliases:
+          - auth.test.internal
+          - grafana.test.internal
+          - zabbix.test.internal
 volumes:
   caddy_data:
   caddy_config:
