@@ -7,3 +7,8 @@ zabbix.test.internal {
 	tls internal
 	reverse_proxy zabbix-web:8080
 }
+
+grafana.test.internal {
+	tls internal
+	reverse_proxy grafana:3000
+}
