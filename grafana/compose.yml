@@ -1,0 +1,19 @@
+services:
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: unless-stopped
+    networks:
+      - edge
+    ports:
+      - '3000:3000'
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+volumes:
+  grafana_data:
+
+networks:
+  edge:
+    external: true
+    name: local-services-network
