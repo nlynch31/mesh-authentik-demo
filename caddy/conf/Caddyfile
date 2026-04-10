@@ -1,12 +1,9 @@
-test.internal {
+auth.test.internal {
 	tls internal
-	reverse_proxy http://authentik-server-1:9000 {
-		header_up Host {host}
-       		header_up X-Forwarded-Proto {scheme}
-       	 	header_up X-Forwarded-For {remote}
-    }
+	reverse_proxy authentik-server-1:9000
 }
+
 zabbix.test.internal {
 	tls internal
-    reverse_proxy zabbix-web:8080
+	reverse_proxy zabbix-web:8080
 }
