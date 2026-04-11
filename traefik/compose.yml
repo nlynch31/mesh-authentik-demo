@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  whoami:
+    image: traefik/whoami:latest
+    container_name: whoami
+    restart: always
+    networks:
+      - edge
+    expose:
+      - "80"
+
+networks:
+  edge:
+    external: true
+    name: local-services-network

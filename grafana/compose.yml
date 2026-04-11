@@ -1,6 +1,7 @@
 services:
   grafana:
-    image: grafana/grafana
+    build: .
+    image: grafana-custom
     container_name: grafana
     restart: unless-stopped
     networks:
@@ -9,6 +10,23 @@ services:
       - '3000:3000'
     volumes:
       - grafana_data:/var/lib/grafana
+      - ./caddy-root.crt:/usr/local/share/ca-certificates/caddy-root.crt:ro
+    environment:
+      - GF_AUTH_GENERIC_OAUTH_ENABLED=${GF_AUTH_GENERIC_OAUTH_ENABLED}
+      - GF_AUTH_GENERIC_OAUTH_NAME=${GF_AUTH_GENERIC_OAUTH_NAME}
+      - GF_AUTH_GENERIC_OAUTH_ALLOW_SIGN_UP=${GF_AUTH_GENERIC_OAUTH_ALLOW_SIGN_UP}
+      - GF_AUTH_GENERIC_OAUTH_CLIENT_ID=${GF_AUTH_GENERIC_OAUTH_CLIENT_ID}
+      - GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET=${GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET}
+      - GF_AUTH_GENERIC_OAUTH_SCOPES=${GF_AUTH_GENERIC_OAUTH_SCOPES}
+      - GF_AUTH_GENERIC_OAUTH_DISCOVERY_URL=https://auth.test.internal/application/o/grafana/.well-known/openid-configuration
+      - GF_AUTH_GENERIC_OAUTH_USE_PKCE=${GF_AUTH_GENERIC_OAUTH_USE_PKCE}
+      - GF_SERVER_ROOT_URL=${GF_SERVER_ROOT_URL}
+      - GF_AUTH_GENERIC_OAUTH_TLS_SKIP_VERIFY_INSECURE=true
+      - GF_AUTH_GENERIC_OAUTH_SKIP_TLS_VERIFY=true
+      - GF_AUTH_GENERIC_OAUTH_EMAIL_ATTRIBUTE_NAME=email
+      - GF_AUTH_GENERIC_OAUTH_LOGIN_ATTRIBUTE_PATH=preferred_username
+      - GF_AUTH_GENERIC_OAUTH_NAME_ATTRIBUTE_PATH=name
+      - GF_AUTH_GENERIC_OAUTH_SCOPES=openid profile email
 
 volumes:
   grafana_data:
