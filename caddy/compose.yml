@@ -17,6 +17,7 @@ services:
           - auth.test.internal
           - grafana.test.internal
           - zabbix.test.internal
+          - whoami.test.internal
 volumes:
   caddy_data:
   caddy_config:

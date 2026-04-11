@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  authentik-proxy:
+    image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/proxy:latest}
+    container_name: authentik-outpost-proxy
+    restart: always
+    env_file:
+      - .env
+    environment:
+      AUTHENTIK_HOST: ${AUTHENTIK_HOST}
+      AUTHENTIK_INSECURE: ${AUTHENTIK_INSECURE:-false}
+      AUTHENTIK_TOKEN: ${AUTHENTIK_TOKEN}
+      AUTHENTIK_HOST_BROWSER: ${AUTHENTIK_HOST_BROWSER}
+    networks:
+      - edge
+    expose:
+      - "9000"
+      - "9443"
+
+networks:
+  edge:
+    external: true
+    name: local-services-network
