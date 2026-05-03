@@ -2,14 +2,14 @@ services:
   grafana:
     build: .
     image: grafana-custom
-    container_name: grafana
+    container_name: ak-demo-grafana
     restart: unless-stopped
     networks:
       - edge
     ports:
       - '3000:3000'
     volumes:
-      - grafana_data:/var/lib/grafana
+      - ak-demo-grafana_data:/var/lib/grafana
       - ./caddy-root.crt:/usr/local/share/ca-certificates/caddy-root.crt:ro
     environment:
       - GF_AUTH_GENERIC_OAUTH_ENABLED=${GF_AUTH_GENERIC_OAUTH_ENABLED}
@@ -37,7 +37,7 @@ services:
       - GF_LOG_FILTERS=oauth:debug auth:debug login.authinfo:debug user.sync:debug
 
 volumes:
-  grafana_data:
+  ak-demo-grafana_data:
 
 networks:
   edge:
